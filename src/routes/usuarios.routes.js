@@ -1,23 +1,16 @@
 import { Router } from "express";
+import UsersRepository from "../models/users/UsersRepository.js";
 
 const usuariosRoutes = Router();
 
-let usuarios = [
-    { 
-        id: 1, 
-        nome: "João", 
-        email: "joao@example.com",
-    },
-    {
-        id: 2,
-        nome: "Maria",
-        email: "maria@example.com"
-    }
-];
+const usersRepository = new UsersRepository();
 
 usuariosRoutes.get("/", (req, res) => {
+    const usuarios = usersRepository.getALLUsers();
+
     return res.status(200).json({
-        messege: usuarios.length == 0 
+        messege: 
+        usuarios.length == 0 
         ? "Nenhum usuário cadastrado" 
         : `total de usuários cadastrados: ${usuarios.length}`,	 
         usuarios,            
